@@ -4,6 +4,8 @@
 #include <Wire.h>
 #include "I2Cdev.h"
 #include "MPU6050_6Axis_MotionApps20.h"
+long stopDist = 20;
+long savedStopDist = stopDist;
 //-------gyroskop
 MPU6050 mpu;
 // èíslo pinu s LED diodou pro notifikaci
@@ -113,12 +115,14 @@ void setup()
 void loop() {
 	
 	
-	if (Distance()<40)
+	if (Distance()<stopDist+20)
 	{
 
-		if (Distance()<20)
+		if (Distance()<stopDist)
 		{
 			SetAllSpeed(0);
+			delay(200);
+			Calibration(Distance());
 			MazeTurn();
 		}
 		else
@@ -129,6 +133,19 @@ void loop() {
 	else
 	{
 		GoForward(200);
+	}
+}
+
+void Calibration(long realDist)
+{
+	stopDist = savedStopDist;
+	if (realDist > stopDist)
+	{
+		stopDist = stopDist - (realDist - stopDist);
+	}
+	else if (realDist < stopDist)
+	{
+		stopDist = stopDist + (stopDist - realDist);
 	}
 }
 
