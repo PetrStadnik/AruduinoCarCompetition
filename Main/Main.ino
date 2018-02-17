@@ -298,12 +298,3 @@ void SetAllSpeed(int v) {
 	m2.setSpeed(v);
 	m1.setSpeed(v);
 }
-void GoForward(int v)
-{
-	m1.run(BACKWARD);
-	m2.run(BACKWARD);
-	m3.run(BACKWARD);
-	m4.run(BACKWARD);
-
-	SetAllSpeed(v);
-}
