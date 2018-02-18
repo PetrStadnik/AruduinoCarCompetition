@@ -1,9 +1,12 @@
 
 
-#include <AFMotor.h>
+
 #include <Wire.h>
 #include "I2Cdev.h"
 #include "MPU6050_6Axis_MotionApps20.h"
+#include <AFMotor.h>
+#include "Car.h"
+Car car(1, 2, 3, 4);
 long stopDist = 20;
 long savedStopDist = stopDist;
 //-------gyroskop
@@ -94,16 +97,7 @@ void setup()
 	pinMode(48, INPUT);
 	pinMode(50, INPUT);
 	//---------------
-	//----------motory
-	m1.setSpeed(200);
-	m2.setSpeed(200);
-	m3.setSpeed(200);
-	m4.setSpeed(200);
-	m1.run(RELEASE);
-	m2.run(RELEASE);
-	m3.run(RELEASE);
-	m4.run(RELEASE);
-	//--------------------
+	
 	//-----sonar-----
 	pinMode(pTrig, OUTPUT);
 	pinMode(pEcho, INPUT);
@@ -120,19 +114,19 @@ void loop() {
 
 		if (Distance()<stopDist)
 		{
-			SetAllSpeed(0);
+			car.SetAllSpeed(0);
 			delay(200);
 			Calibration(Distance());
 			MazeTurn();
 		}
 		else
 		{
-			GoForward(150);
+			car.GoForward(150);
 		}
 	}
 	else
 	{
-		GoForward(200);
+		car.GoForward(200);
 	}
 }
 
@@ -178,24 +172,24 @@ void MazeTurn()
 	// Serial.print(InfraSensors[3]);
 	if ((digitalRead(44) == 1 && digitalRead(50) == 1) || (digitalRead(44) == 0 && digitalRead(50) == 0))
 	{
-		TurnLeft(1500);
+		car.TurnLeft(1500);
 		int lDist = Distance();
-		TurnRight(3000);
+		car.TurnRight(3000);
 		int rDist = Distance();
 		if (lDist > rDist)
 		{
-			TurnLeft(3000);
+			car.TurnLeft(3000);
 		}
 		else{}
 
 	}
 	else if (!(digitalRead(44)) == 0)
 	{
-		TurnLeft(1500);
+		car.TurnLeft(1500);
 	}
 	else
 	{
-		TurnRight(1500);
+		car.TurnRight(1500);
 	}
 }
 
@@ -270,31 +264,3 @@ int Rotation()
 	}
 }
 
-void TurnLeft(int t) {
-	m4.run(FORWARD);
-	m3.run(BACKWARD);
-	m2.run(BACKWARD);
-	m1.run(FORWARD);
-
-	SetAllSpeed(200);
-	delay(t);
-	SetAllSpeed(0);
-}
-
-void TurnRight(int t) {
-	m4.run(BACKWARD);
-	m3.run(FORWARD);
-	m2.run(FORWARD);
-	m1.run(BACKWARD);
-
-	SetAllSpeed(200);
-	delay(t);
-	SetAllSpeed(0);
-}
-
-void SetAllSpeed(int v) {
-	m4.setSpeed(v);
-	m3.setSpeed(v);
-	m2.setSpeed(v);
-	m1.setSpeed(v);
-}
