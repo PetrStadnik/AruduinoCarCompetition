@@ -4,9 +4,11 @@
 #include <Wire.h>
 #include "I2Cdev.h"
 #include "MPU6050_6Axis_MotionApps20.h"
-#include <AFMotor.h>
 #include "Car.h"
 Car car(1, 2, 3, 4);
+#include "Sonar.h"
+Sonar sonar(24, 22);
+#include "Gyroscope.h"
 long stopDist = 20;
 long savedStopDist = stopDist;
 //-------gyroskop
@@ -34,13 +36,9 @@ void dmpINT() {
 }
 
 //------------------------------------------------------------
-AF_DCMotor m4(4);
-AF_DCMotor m3(3);
-AF_DCMotor m2(2);
-AF_DCMotor m1(1);
 
-int pTrig = 24;
-int pEcho = 22;
+
+
 
 
 
@@ -98,10 +96,6 @@ void setup()
 	pinMode(50, INPUT);
 	//---------------
 	
-	//-----sonar-----
-	pinMode(pTrig, OUTPUT);
-	pinMode(pEcho, INPUT);
-	//------------------
 	// komunikace pøes sériovou linku rychlostí 9600 baud
 	//Serial.begin(9600);
 }
@@ -109,14 +103,14 @@ void setup()
 void loop() {
 	
 	
-	if (Distance()<stopDist+20)
+	if (sonar.Distance()<stopDist+20)
 	{
 
-		if (Distance()<stopDist)
+		if (sonar.Distance()<stopDist)
 		{
 			car.SetAllSpeed(0);
 			delay(200);
-			Calibration(Distance());
+			Calibration(sonar.Distance());
 			MazeTurn();
 		}
 		else
@@ -173,9 +167,9 @@ void MazeTurn()
 	if ((digitalRead(44) == 1 && digitalRead(50) == 1) || (digitalRead(44) == 0 && digitalRead(50) == 0))
 	{
 		car.TurnLeft(1500);
-		int lDist = Distance();
+		int lDist = sonar.Distance();
 		car.TurnRight(3000);
-		int rDist = Distance();
+		int rDist = sonar.Distance();
 		if (lDist > rDist)
 		{
 			car.TurnLeft(3000);
@@ -193,29 +187,7 @@ void MazeTurn()
 	}
 }
 
-int Distance()
-{
-	long odezva, vzdalenost;
-	// nastavíme na 2 mikrosekundy výstup na GND (pro jistotu)
-	// poté nastavíme na 5 mikrosekund výstup rovný napájení
-	// a poté opìt na GND
-	digitalWrite(pTrig, LOW);
-	delayMicroseconds(2);
-	digitalWrite(pTrig, HIGH);
-	delayMicroseconds(5);
-	digitalWrite(pTrig, LOW);
-	// pomocí funkce pulseIn získáme následnì
-	// délku pulzu v mikrosekundách (us)
-	odezva = pulseIn(pEcho, HIGH);
-	// pøepoèet získaného èasu na vzdálenost v cm
-	vzdalenost = odezva / 58.31;
-	Serial.print("Vzdalenost je ");
-	Serial.print(vzdalenost);
-	Serial.println(" cm.");
-	// pauza 0.5 s pro pøehledné ètení
 
-	return vzdalenost;
-}
 
 int Rotation()
 {

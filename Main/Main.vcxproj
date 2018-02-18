@@ -83,10 +83,14 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Car.h" />
+    <ClInclude Include="Gyroscope.h" />
+    <ClInclude Include="Sonar.h" />
     <ClInclude Include="__vm\.Main.vsarduino.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Car.cpp" />
+    <ClCompile Include="Gyroscope.cpp" />
+    <ClCompile Include="Sonar.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
