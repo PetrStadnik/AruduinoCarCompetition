@@ -156,14 +156,14 @@ int InfraSensors()
 	// ukonèení øádku na sériové lince
 	Serial.println();
 	// pauza pro pøehlednìjší výpis
-	delay(500);
+	//delay(500);
 	int infraleds[4] = { !(digitalRead(44)), !(digitalRead(46)), !(digitalRead(48)), !(digitalRead(50)) };
 	return infraleds[4];
 }
 
 void MazeTurn()
 {
-
+	
 	// Serial.print(InfraSensors[3]);
 	if ((digitalRead(44) == 1 && digitalRead(50) == 1) || (digitalRead(44) == 0 && digitalRead(50) == 0))
 	{
