@@ -224,7 +224,7 @@ int Distance()
 	return vzdalenost;
 }
 
-int Rotation()
+void Rotation()
 {
 	// dokud nepošle DMP pøerušení, mùžeme provádìt ostatní pøíkazy
 	// ve smyèce while níže
