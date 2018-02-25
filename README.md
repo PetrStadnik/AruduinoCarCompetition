@@ -1,5 +1,5 @@
 # AruduinoCarCompetition
-Tento kód je rozdělen do tříd (OOP)
+Tento kód je rozdělen do tříd. (OOP)
 
 Pro úpravu kódu ve VS je potřeba rozšíření viz.:
 https://www.arduino-forum.cz/viewtopic.php?t=5
