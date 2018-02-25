@@ -47,7 +47,7 @@ void dmpINT() {
 
 void setup()
 {
-	if (infraLed.GetInfraLed.leftLine == 1)
+	
 	//-----gyroskop
 	// nastavení LED jako výstupní
 	pinMode(LED_PIN, OUTPUT);

@@ -12,9 +12,6 @@ InfraLed::InfraLed(int pin1, int pin2, int pin3, int pin4)
 
 
 
-int InfraLed::GetInfraLed()
-{
-	
-	int infraleds[4] = { !(digitalRead(pin1)), !(digitalRead(pin2)), !(digitalRead(pin3)), !(digitalRead(pin4)) };
-	
-}
+
+
+
