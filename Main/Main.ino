@@ -8,6 +8,9 @@ Car car(1, 2, 3, 4);
 #include "Sonar.h"
 Sonar sonar(24, 22);
 //-------------------------
+#include "InfraLed.h"
+InfraLed infraLed(44, 46, 48, 50);
+//-------------------------
 //#include "Gyroscope.h"
 long stopDist = 20;
 long savedStopDist = stopDist;
@@ -44,7 +47,7 @@ void dmpINT() {
 
 void setup()
 {
-	
+	if (infraLed.GetInfraLed.leftLine == 1)
 	//-----gyroskop
 	// nastavení LED jako výstupní
 	pinMode(LED_PIN, OUTPUT);
@@ -84,12 +87,7 @@ void setup()
 	}
 	digitalWrite(LED_PIN, LOW);
 	//-------------------
-	//----------infra led
-	pinMode(44, INPUT);
-	pinMode(46, INPUT);
-	pinMode(48, INPUT);
-	pinMode(50, INPUT);
-	//---------------
+	
 	
 	// komunikace pøes sériovou linku rychlostí 9600 baud
 	//Serial.begin(9600);
@@ -132,28 +130,6 @@ void Calibration(long realDist)
 	}
 }
 
-int InfraSensors()
-{
-	Serial.print("Stav vstupnich pinu: ");
-
-	// jednobitová promìnná pro uložení stavu 
-	// naètení stavu aktuálního pinu, nutná
-	// negace, protože modul vrací 0 pøi detekci
-	//levý boèní
-	Serial.print(!(digitalRead(44)));
-	//levý èárový
-	Serial.print(!(digitalRead(46)));
-	//pravý èárový
-	Serial.print(!(digitalRead(48)));
-	//pravý boèní
-	Serial.print(!(digitalRead(50)));
-	// ukonèení øádku na sériové lince
-	Serial.println();
-	// pauza pro pøehlednìjší výpis
-	//delay(500);
-	int infraleds[4] = { !(digitalRead(44)), !(digitalRead(46)), !(digitalRead(48)), !(digitalRead(50)) };
-	return infraleds[4];
-}
 
 void MazeTurn()
 {
