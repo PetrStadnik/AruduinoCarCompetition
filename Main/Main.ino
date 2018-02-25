@@ -1,14 +1,13 @@
-
-
-
-#include <AFMotor.h>
 #include <Wire.h>
 #include "I2Cdev.h"
 #include "MPU6050_6Axis_MotionApps20.h"
+//-------------------------
 #include "Car.h"
 Car car(1, 2, 3, 4);
+//-------------------------
 #include "Sonar.h"
 Sonar sonar(24, 22);
+//-------------------------
 //#include "Gyroscope.h"
 long stopDist = 20;
 long savedStopDist = stopDist;
@@ -41,11 +40,6 @@ void dmpINT() {
 
 
 
-
-
-//int minMod = 20;
-//int minSpeed = 0;
-int x = 0;
 
 
 void setup()
