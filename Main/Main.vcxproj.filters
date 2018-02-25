@@ -30,6 +30,9 @@
     <ClInclude Include="Gyroscope.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="InfraLed.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Car.cpp">
@@ -39,6 +42,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Gyroscope.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="InfraLed.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
