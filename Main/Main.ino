@@ -1,5 +1,6 @@
 #include <Wire.h>
 #include "I2Cdev.h"
+#include <Arduino.h>
 #include "MPU6050_6Axis_MotionApps20.h"
 //-------------------------
 #include "Car.h"
@@ -95,7 +96,7 @@ void setup()
 
 void loop() {
 	
-	
+	Rotation();
 	if (sonar.Distance()<stopDist+20)
 	{
 
@@ -150,11 +151,13 @@ void MazeTurn()
 	}
 	else if (!(digitalRead(44)) == 0)
 	{
-		car.TurnLeft(1500);
+		//car.TurnLeft(1500);
+		Otacecni(1, rotace[0] * 180 / M_PI);
 	}
 	else
 	{
-		car.TurnRight(1500);
+		//car.TurnRight(1500);
+		Otacecni(0, rotace[0] * 180 / M_PI);
 	}
 }
 
@@ -204,6 +207,37 @@ void Rotation()
 		Serial.print("st \t Z ");
 		Serial.print(rotace[0] * 180 / M_PI);
 		Serial.println("st");
-	}
+		
+	}	
+	long z = rotace[0];
 }
 
+
+void Otacecni(int kam, long startZ )
+{
+
+	long stopZ;
+	if (kam==0)
+	{
+		stopZ = startZ + 90;
+	}
+	else if (kam == 1)
+	{
+		stopZ = kam - 90;
+	}
+	while (!(stopZ < rotace[0] * 180 / M_PI + 5 && stopZ > rotace[0] * 180 / M_PI - 5))
+	{
+		if (kam == 0)//pravo
+		{
+			
+			car.TurnRight(0);
+		}
+		else if (kam == 1)//levo
+		{
+			car.TurnLeft(0);
+		}
+		
+	}
+	car.SetAllSpeed(0);
+	
+}

@@ -21,9 +21,12 @@ void Car::TurnLeft(int t) {
 	m2.run(BACKWARD);
 	m1.run(FORWARD);
 
-	SetAllSpeed(200);
+	SetAllSpeed(250);
+	if (t != 0)
+	{	
 	delay(t);
 	SetAllSpeed(0);
+	}
 }
 
 void Car::TurnRight(int t) {
@@ -31,10 +34,12 @@ void Car::TurnRight(int t) {
 	m3.run(FORWARD);
 	m2.run(FORWARD);
 	m1.run(BACKWARD);
-
-	SetAllSpeed(200);
+	if (t != 0)
+	{
+	SetAllSpeed(250);
 	delay(t);
 	SetAllSpeed(0);
+	}
 }
 
 void Car::SetAllSpeed(int v) {
